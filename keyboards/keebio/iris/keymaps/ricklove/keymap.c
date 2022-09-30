@@ -140,36 +140,26 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
    HSV hsv2 = { 80, 255, 255};
    HSV hsv3 = {160, 255, 255};
 
-   // if (IS_LAYER_ON_STATE(layer_state, 2)) {
-   //    hsv = {130, 255, 255};
-   // } else {
-   //    hsv = {30, 255, 255};
-   // }
+   for (uint8_t lay = 1; lay <= 3; ++lay) {
+      if(!IS_LAYER_ON(lay)){
+         continue;
+      }
 
-   if (hsv1.v > rgb_matrix_get_val()) { hsv1.v = rgb_matrix_get_val(); }
-   if (hsv2.v > rgb_matrix_get_val()) { hsv2.v = rgb_matrix_get_val(); }
-   if (hsv3.v > rgb_matrix_get_val()) { hsv3.v = rgb_matrix_get_val(); }
-   RGB rgb1 = hsv_to_rgb(hsv1);
-   RGB rgb2 = hsv_to_rgb(hsv2);
-   RGB rgb3 = hsv_to_rgb(hsv3);
+      HSV hsv = lay == 1 ? hsv1
+         : lay == 2 ? hsv2
+         : hsv3;
 
-   if (get_highest_layer(layer_state) > 0) {
-      uint8_t layer = get_highest_layer(layer_state);
+      if (hsv.v > rgb_matrix_get_val()) { hsv.v = rgb_matrix_get_val(); }
+      RGB rgb = hsv_to_rgb(hsv);
 
       for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
          for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
             uint8_t index = g_led_config.matrix_co[row][col];
 
-            if (index >= led_min && index <= led_max && index != NO_LED) {
-               for (uint8_t lay = 1; lay <= layer; ++lay) {
-                  RGB rgb = lay == 1 ? rgb1
-                     : lay == 2 ? rgb2
-                     : rgb3;
-
-                  if(keymap_key_to_keycode(lay, (keypos_t){col,row}) > KC_TRNS){
-                     rgb_matrix_set_color(index, rgb.r, rgb.g, rgb.b);
-                  }
-               }
+            if (index >= led_min && index <= led_max && index != NO_LED
+               && keymap_key_to_keycode(lay, (keypos_t){col,row}) > KC_TRNS
+            ){
+               rgb_matrix_set_color(index, rgb.r, rgb.g, rgb.b);
             }
          }
       }
