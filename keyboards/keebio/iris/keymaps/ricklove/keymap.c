@@ -76,7 +76,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
    switch (keycode) {
       case RICK00:
@@ -231,11 +230,45 @@ void rgb_matrix_indicators_user(void) {
    rgb_matrix_set_color(56,0x22, 0x22, 0x22);
    rgb_matrix_set_color(57,0x22, 0x22, 0x22);
 
-   bool isShift = false; //get_mods() & MOD_BIT(KC_LSFT);
+   bool isShift = get_mods() & MOD_MASK_SHIFT;
 
-   for (uint8_t lay = 0; lay <= 3; ++lay) {
+   if(isShift){
+      rgb_matrix_set_color(6,RGB_WHITE);
+      rgb_matrix_set_color(7,RGB_WHITE);
+      rgb_matrix_set_color(8,RGB_WHITE);
+      rgb_matrix_set_color(9,RGB_WHITE);
+      rgb_matrix_set_color(10,RGB_WHITE);
+
+      rgb_matrix_set_color(13,RGB_WHITE);
+      rgb_matrix_set_color(14,RGB_WHITE);
+      rgb_matrix_set_color(15,RGB_WHITE);
+      rgb_matrix_set_color(16,RGB_WHITE);
+      rgb_matrix_set_color(17,RGB_WHITE);
+      
+      rgb_matrix_set_color(18,RGB_WHITE);
+      rgb_matrix_set_color(19,RGB_WHITE);
+      rgb_matrix_set_color(20,RGB_WHITE);
+      rgb_matrix_set_color(21,RGB_WHITE);
+      rgb_matrix_set_color(22,RGB_WHITE);
+
+      rgb_matrix_set_color(40,RGB_WHITE);
+      rgb_matrix_set_color(41,RGB_WHITE);
+      rgb_matrix_set_color(42,RGB_WHITE);
+      rgb_matrix_set_color(43,RGB_WHITE);
+      rgb_matrix_set_color(44,RGB_WHITE);
+
+      rgb_matrix_set_color(48,RGB_WHITE);
+      rgb_matrix_set_color(49,RGB_WHITE);
+      rgb_matrix_set_color(50,RGB_WHITE);
+      rgb_matrix_set_color(51,RGB_WHITE);
+
+      rgb_matrix_set_color(52,RGB_WHITE);
+      rgb_matrix_set_color(53,RGB_WHITE);
+   }
+
+   for (uint8_t lay = 1; lay <= 3; ++lay) {
       if ((lay > 0 && !IS_LAYER_ON(lay))
-         || (lay == 0 && !isShift)
+         //|| (lay == 0 && !isShift)
       ){
          continue;
       }
