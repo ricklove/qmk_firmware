@@ -134,6 +134,15 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 
+void setColor(uint8_t i, uint8_t h, uint8_t s, uint8_t v) {
+   HSV hsv = {h,s,v};
+
+   if (hsv.v > rgb_matrix_get_val()) { hsv.v = rgb_matrix_get_val(); }
+   RGB rgb = hsv_to_rgb(hsv);
+
+   rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+}
+
 // void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 //    HSV hsv1 = {  0, 255, 255};
 //    HSV hsv2 = { 80, 255, 255};
@@ -158,7 +167,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 //             if (index >= led_min && index <= led_max && index != NO_LED
 //                && keymap_key_to_keycode(lay, (keypos_t){col,row}) > KC_TRNS
 //             ){
-//                rgb_matrix_set_color(index, rgb.r, rgb.g, rgb.b);
+//                setColor(index, rgb.r, rgb.g, rgb.b);
 //             }
 //          }
 //       }
@@ -167,45 +176,27 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 /**
  * Define lighting layers.
- *
- * Iris rev6a uses WS2812 RGB Matrix lighting.
- * The RGB Matrix lighting option has already been enabled in ../../rev6a/config.h
- * You'll need to add #define SPLIT_LAYER_STATE_ENABLE to config.h if you
- * will be customizing the LED's per key.
- *
- * Here's how to customize the colors per layer and per key:
- * https://github.com/qmk/qmk_firmware/blob/master/docs/feature_rgb_matrix.md#direct-operation-iddirect-operation
- *
- * If you start getting real weird with it, your likely to exceed the firmware limit of 28672.
- * You may need to selectively disable some effects:
- * https://github.com/qmk/qmk_firmware/blob/master/docs/feature_rgb_matrix.md#rgb-matrix-effects-idrgb-matrix-effects
- *
- * There are 68 Leds. Printed on the board itself, the led numbers are 1-68.
- * For color addressing, use 0-67 as the index number.
- * rgb_matrix_set_color(index, r, g, b)
 
-RGB_AZURE
-RGB_BLACK
-RGB_BLUE
-RGB_CHARTREUSE
-RGB_CORAL
-RGB_CYAN
-RGB_GOLD
-RGB_GOLDENROD
-RGB_GREEN
-RGB_MAGENTA
-RGB_ORANGE
-RGB_PINK
-RGB_PURPLE
-RGB_RED
-RGB_SPRINGGREEN
-RGB_TEAL
-RGB_TURQUOISE
-RGB_WHITE
-RGB_YELLOW
+HSV_AZURE
+HSV_BLACK
+HSV_BLUE
+HSV_CHARTREUSE
+HSV_CORAL
+HSV_CYAN
+HSV_GOLD
+HSV_GOLDENROD
+HSV_GREEN
+HSV_MAGENTA
+HSV_ORANGE
+HSV_PINK
+HSV_PURPLE
+HSV_RED
+HSV_SPRINGGREEN
+HSV_TEAL
+HSV_TURQUOISE
+HSV_WHITE
+HSV_YELLOW
 
- *
- * Here's an LED number guide:
  * FRONT
  * Left Hand                    Right Hand
  * |00|01|02|03|04|05|          |39|38|37|36|35|34|
@@ -222,48 +213,48 @@ RGB_YELLOW
  *             |--|62|--|    |--|28|--|
  */
 void rgb_matrix_indicators_user(void) {
-   rgb_matrix_set_color(58,RGB_RED);
-   rgb_matrix_set_color(12,RGB_GREEN);
-   rgb_matrix_set_color(59,RGB_BLUE);
-   rgb_matrix_set_color(54,0x22, 0x22, 0x22);
-   rgb_matrix_set_color(55,0x22, 0x22, 0x22);
-   rgb_matrix_set_color(56,0x22, 0x22, 0x22);
-   rgb_matrix_set_color(57,0x22, 0x22, 0x22);
+   setColor(58,HSV_RED);
+   setColor(12,HSV_GREEN);
+   setColor(59,HSV_BLUE);
+   setColor(54, 0, 0, 10);
+   setColor(55, 0, 0, 10);
+   setColor(56, 0, 0, 10);
+   setColor(57, 0, 0, 10);
 
    // bool isShift = get_mods() & MOD_MASK_SHIFT;
 
    // if(isShift){
-   //    rgb_matrix_set_color(6,RGB_WHITE);
-   //    rgb_matrix_set_color(7,RGB_WHITE);
-   //    rgb_matrix_set_color(8,RGB_WHITE);
-   //    rgb_matrix_set_color(9,RGB_WHITE);
-   //    rgb_matrix_set_color(10,RGB_WHITE);
+   //    setColor(6,HSV_WHITE);
+   //    setColor(7,HSV_WHITE);
+   //    setColor(8,HSV_WHITE);
+   //    setColor(9,HSV_WHITE);
+   //    setColor(10,HSV_WHITE);
 
-   //    rgb_matrix_set_color(13,RGB_WHITE);
-   //    rgb_matrix_set_color(14,RGB_WHITE);
-   //    rgb_matrix_set_color(15,RGB_WHITE);
-   //    rgb_matrix_set_color(16,RGB_WHITE);
-   //    rgb_matrix_set_color(17,RGB_WHITE);
+   //    setColor(13,HSV_WHITE);
+   //    setColor(14,HSV_WHITE);
+   //    setColor(15,HSV_WHITE);
+   //    setColor(16,HSV_WHITE);
+   //    setColor(17,HSV_WHITE);
       
-   //    rgb_matrix_set_color(18,RGB_WHITE);
-   //    rgb_matrix_set_color(19,RGB_WHITE);
-   //    rgb_matrix_set_color(20,RGB_WHITE);
-   //    rgb_matrix_set_color(21,RGB_WHITE);
-   //    rgb_matrix_set_color(22,RGB_WHITE);
+   //    setColor(18,HSV_WHITE);
+   //    setColor(19,HSV_WHITE);
+   //    setColor(20,HSV_WHITE);
+   //    setColor(21,HSV_WHITE);
+   //    setColor(22,HSV_WHITE);
 
-   //    rgb_matrix_set_color(40,RGB_WHITE);
-   //    rgb_matrix_set_color(41,RGB_WHITE);
-   //    rgb_matrix_set_color(42,RGB_WHITE);
-   //    rgb_matrix_set_color(43,RGB_WHITE);
-   //    rgb_matrix_set_color(44,RGB_WHITE);
+   //    setColor(40,HSV_WHITE);
+   //    setColor(41,HSV_WHITE);
+   //    setColor(42,HSV_WHITE);
+   //    setColor(43,HSV_WHITE);
+   //    setColor(44,HSV_WHITE);
 
-   //    rgb_matrix_set_color(48,RGB_WHITE);
-   //    rgb_matrix_set_color(49,RGB_WHITE);
-   //    rgb_matrix_set_color(50,RGB_WHITE);
-   //    rgb_matrix_set_color(51,RGB_WHITE);
+   //    setColor(48,HSV_WHITE);
+   //    setColor(49,HSV_WHITE);
+   //    setColor(50,HSV_WHITE);
+   //    setColor(51,HSV_WHITE);
 
-   //    rgb_matrix_set_color(52,RGB_WHITE);
-   //    rgb_matrix_set_color(53,RGB_WHITE);
+   //    setColor(52,HSV_WHITE);
+   //    setColor(53,HSV_WHITE);
    // }
 
    for (uint8_t lay = 1; lay <= 3; ++lay) {
@@ -273,9 +264,9 @@ void rgb_matrix_indicators_user(void) {
          continue;
       }
 
-      RGB rgb = lay == 1 ? (RGB){RGB_GREEN}
-         : lay == 2 ? (RGB){RGB_RED}
-         : (RGB){RGB_WHITE}
+      HSV hsvDefault = lay == 1 ? (HSV){HSV_GREEN}
+         : lay == 2 ? (HSV){HSV_RED}
+         : (HSV){HSV_WHITE}
          ;
 
       for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
@@ -293,7 +284,7 @@ void rgb_matrix_indicators_user(void) {
                   //    || index == 49
                   //    || index == 48
                   // ){
-                  //    rgb_matrix_set_color(index,RGB_RED);
+                  //    setColor(index,HSV_RED);
                   //    continue;
                   // }
                   if(
@@ -302,7 +293,7 @@ void rgb_matrix_indicators_user(void) {
                      || index == 43
                      || index == 54
                   ){
-                     rgb_matrix_set_color(index,RGB_MAGENTA);
+                     setColor(index,HSV_MAGENTA);
                      continue;
                   }
                }
@@ -319,7 +310,7 @@ void rgb_matrix_indicators_user(void) {
                      || index == 54
                      || index == 4
                   ){
-                     rgb_matrix_set_color(index,RGB_BLUE);
+                     setColor(index,HSV_BLUE);
                      continue;
                   }
                   if(
@@ -329,7 +320,7 @@ void rgb_matrix_indicators_user(void) {
                      || index == 47
                      || index == 48
                   ){
-                     rgb_matrix_set_color(index,RGB_ORANGE);
+                     setColor(index,HSV_ORANGE);
                      continue;
                   }
                   if(
@@ -337,7 +328,7 @@ void rgb_matrix_indicators_user(void) {
                      || index == 19
                      || index == 20
                   ){
-                     rgb_matrix_set_color(index,RGB_MAGENTA);
+                     setColor(index,HSV_MAGENTA);
                      continue;
                   }
                   if(
@@ -345,66 +336,23 @@ void rgb_matrix_indicators_user(void) {
                      || index == 8
                      || index == 9
                   ){
-                     rgb_matrix_set_color(index,RGB_SPRINGGREEN);
+                     setColor(index,HSV_SPRINGGREEN);
                      continue;
                   }
                   if(
                         index == 13
                      || index == 17
                   ){
-                     rgb_matrix_set_color(index,RGB_GOLD);
+                     setColor(index,HSV_GOLD);
                      continue;
                   }
                }
 
-               rgb_matrix_set_color(index, rgb.r, rgb.g, rgb.b);
+               setColor(index, hsvDefault.h, hsvDefault.s, hsvDefault.v);
             }
 
          }
       }
    }
 
-//   if (IS_LAYER_ON(1)) {
-//     /* Upperleft most key red: */
-//     rgb_matrix_set_color(0,255,0,0);
-//     /* Upperright most front key blue: */
-//     rgb_matrix_set_color(0,0,255,0);
-//     /* Bottom right on lefthand Green: */
-//     rgb_matrix_set_color(0, RGB_GREEN);
-//   }
-//   else if (IS_LAYER_ON(2)) {
-//     /* RGB +/- controls. */
-//     rgb_matrix_set_color(35, RGB_RED);
-//     rgb_matrix_set_color(34, RGB_BLUE);
-//     rgb_matrix_set_color(37, RGB_RED);
-//     rgb_matrix_set_color(36, RGB_BLUE);
-//     rgb_matrix_set_color(44, RGB_RED);
-//     rgb_matrix_set_color(45, RGB_BLUE);
-//     rgb_matrix_set_color(47, RGB_RED);
-//     rgb_matrix_set_color(46, RGB_BLUE);
-//     rgb_matrix_set_color(56, RGB_RED);
-//     rgb_matrix_set_color(57, RGB_BLUE);
-//     /* RGB Toggle. */
-//     rgb_matrix_set_color(00, RGB_PURPLE);
-//     /* Move screen left/right. */
-//     rgb_matrix_set_color(26, RGB_YELLOW);
-//     rgb_matrix_set_color(60, RGB_YELLOW);
-//     /* Arrow keys. */
-//     rgb_matrix_set_color(50, RGB_PURPLE);
-//     rgb_matrix_set_color(49, RGB_PURPLE);
-//     rgb_matrix_set_color(48, RGB_PURPLE);
-//     rgb_matrix_set_color(42, RGB_PURPLE);
-//     /* Mouse movement arrows. */
-//     rgb_matrix_set_color(14, RGB_ORANGE);
-//     rgb_matrix_set_color(15, RGB_ORANGE);
-//     rgb_matrix_set_color(16, RGB_ORANGE);
-//     rgb_matrix_set_color(8, RGB_ORANGE);
-//     /* Mouse buttons. */
-//     rgb_matrix_set_color(41, RGB_ORANGE);
-//     rgb_matrix_set_color(43, RGB_ORANGE);
-//     /* Mouse acceleration. */
-//     rgb_matrix_set_color(01, 200, 165, 0);
-//     rgb_matrix_set_color(02, 255, 200, 0);
-//     rgb_matrix_set_color(03, 255, 235, 0);
-//   }
 }
