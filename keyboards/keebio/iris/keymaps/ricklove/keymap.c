@@ -142,7 +142,7 @@ void setColor(uint8_t i, uint8_t h, uint8_t s, uint8_t v) {
 
    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
 }
-
+ 
 // void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 //    HSV hsv1 = {  0, 255, 255};
 //    HSV hsv2 = { 80, 255, 255};
@@ -264,8 +264,8 @@ void rgb_matrix_indicators_user(void) {
          continue;
       }
 
-      HSV hsvDefault = lay == 1 ? (HSV){HSV_GREEN}
-         : lay == 2 ? (HSV){HSV_RED}
+      HSV hsvDefault = lay == 1 ? (HSV){HSV_RED}
+         : lay == 2 ? (HSV){HSV_GREEN}
          : (HSV){HSV_WHITE}
          ;
 
