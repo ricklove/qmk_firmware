@@ -226,19 +226,21 @@ void rgb_matrix_indicators_user(void) {
    rgb_matrix_set_color(58,RGB_RED);
    rgb_matrix_set_color(12,RGB_GREEN);
    rgb_matrix_set_color(59,RGB_BLUE);
-   rgb_matrix_set_color(54,RGB_TURQUOISE);
-   rgb_matrix_set_color(55,RGB_TURQUOISE);
-   rgb_matrix_set_color(56,RGB_TURQUOISE);
-   rgb_matrix_set_color(57,RGB_TURQUOISE);
+   rgb_matrix_set_color(54,0x22, 0x22, 0x22);
+   rgb_matrix_set_color(55,0x22, 0x22, 0x22);
+   rgb_matrix_set_color(56,0x22, 0x22, 0x22);
+   rgb_matrix_set_color(57,0x22, 0x22, 0x22);
 
    for (uint8_t lay = 1; lay <= 3; ++lay) {
-      if (!IS_LAYER_ON(lay)){
+      if (!IS_LAYER_ON(lay) 
+         // && !(lay == 0 && get_mods() & MOD_MASK_SHIFT)
+      ){
          continue;
       }
 
       RGB rgb = lay == 1 ? (RGB){RGB_GREEN}
-         : lay == 2 ? (RGB){RGB_RED}
-         : (RGB){RGB_BLUE}
+         : lay == 2 ? (RGB){RGB_MAGENTA}
+         : (RGB){RGB_WHITE}
          ;
 
       for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
@@ -256,7 +258,7 @@ void rgb_matrix_indicators_user(void) {
                      || index == 49
                      || index == 48
                   ){
-                     rgb_matrix_set_color(index,RGB_MAGENTA);
+                     rgb_matrix_set_color(index,RGB_RED);
                      continue;
                   }
                }
@@ -273,13 +275,15 @@ void rgb_matrix_indicators_user(void) {
                      || index == 54
                      || index == 4
                   ){
-                     rgb_matrix_set_color(index,RGB_CHARTREUSE);
+                     rgb_matrix_set_color(index,RGB_BLUE);
                      continue;
                   }
                   if(
                         index == 39
                      || index == 52
                      || index == 21
+                     || index == 49
+                     || index == 48
                   ){
                      rgb_matrix_set_color(index,RGB_ORANGE);
                      continue;
