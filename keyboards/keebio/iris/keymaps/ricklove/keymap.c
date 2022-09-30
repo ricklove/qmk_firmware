@@ -231,15 +231,17 @@ void rgb_matrix_indicators_user(void) {
    rgb_matrix_set_color(56,0x22, 0x22, 0x22);
    rgb_matrix_set_color(57,0x22, 0x22, 0x22);
 
-   for (uint8_t lay = 1; lay <= 3; ++lay) {
-      if (!IS_LAYER_ON(lay) 
-         // && !(lay == 0 && get_mods() & MOD_MASK_SHIFT)
+   bool isShift = false; //get_mods() & MOD_BIT(KC_LSFT);
+
+   for (uint8_t lay = 0; lay <= 3; ++lay) {
+      if ((lay > 0 && !IS_LAYER_ON(lay))
+         || (lay == 0 && !isShift)
       ){
          continue;
       }
 
       RGB rgb = lay == 1 ? (RGB){RGB_GREEN}
-         : lay == 2 ? (RGB){RGB_MAGENTA}
+         : lay == 2 ? (RGB){RGB_RED}
          : (RGB){RGB_WHITE}
          ;
 
@@ -252,13 +254,22 @@ void rgb_matrix_indicators_user(void) {
             ){
                // Custom colors
                if (lay == 1){
+                  // if(
+                  //       index == 42
+                  //    || index == 50
+                  //    || index == 49
+                  //    || index == 48
+                  // ){
+                  //    rgb_matrix_set_color(index,RGB_RED);
+                  //    continue;
+                  // }
                   if(
-                        index == 42
-                     || index == 50
-                     || index == 49
-                     || index == 48
+                        index == 37
+                     || index == 41
+                     || index == 43
+                     || index == 54
                   ){
-                     rgb_matrix_set_color(index,RGB_RED);
+                     rgb_matrix_set_color(index,RGB_MAGENTA);
                      continue;
                   }
                }
@@ -282,7 +293,7 @@ void rgb_matrix_indicators_user(void) {
                         index == 39
                      || index == 52
                      || index == 21
-                     || index == 49
+                     || index == 47
                      || index == 48
                   ){
                      rgb_matrix_set_color(index,RGB_ORANGE);
