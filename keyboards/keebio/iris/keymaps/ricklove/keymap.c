@@ -216,10 +216,11 @@ void rgb_matrix_indicators_user(void) {
    setColor(58,HSV_RED);
    setColor(12,HSV_GREEN);
    setColor(59,HSV_BLUE);
-   setColor(54, 0, 0, 10);
-   setColor(55, 0, 0, 10);
-   setColor(56, 0, 0, 10);
-   setColor(57, 0, 0, 10);
+   setColor(55,HSV_MAGENTA);
+   setColor(56,HSV_MAGENTA);
+   setColor(57,HSV_MAGENTA);
+   setColor(47,HSV_MAGENTA);
+
 
    // bool isShift = get_mods() & MOD_MASK_SHIFT;
 
@@ -276,51 +277,40 @@ void rgb_matrix_indicators_user(void) {
             if (index != NO_LED
                && keymap_key_to_keycode(lay, (keypos_t){col,row}) > KC_TRNS
             ){
-               // Custom colors
-               if (lay == 1){
-                  // if(
-                  //       index == 42
-                  //    || index == 50
-                  //    || index == 49
-                  //    || index == 48
-                  // ){
-                  //    setColor(index,HSV_RED);
-                  //    continue;
-                  // }
-                  if(
-                        index == 37
-                     || index == 41
-                     || index == 43
-                     || index == 54
-                  ){
-                     setColor(index,HSV_MAGENTA);
-                     continue;
-                  }
-               }
+               // // Custom colors
+               // if (lay == 1){
+               //    // if(
+               //    //       index == 42
+               //    //    || index == 50
+               //    //    || index == 49
+               //    //    || index == 48
+               //    // ){
+               //    //    setColor(index,HSV_RED);
+               //    //    continue;
+               //    // }
+               //    if(
+               //          index == 37
+               //       || index == 41
+               //       || index == 43
+               //       || index == 54
+               //    ){
+               //       setColor(index,HSV_MAGENTA);
+               //       continue;
+               //    }
+               // }
 
                if (lay == 3){
                   if(
                         index == 38
                      || index == 41
                      || index == 50
-                     || index == 53
-                     || index == 37
+                     || index == 52
+                     || index == 36
                      || index == 42
                      || index == 49
-                     || index == 54
-                     || index == 4
+                     || index == 53
                   ){
                      setColor(index,HSV_BLUE);
-                     continue;
-                  }
-                  if(
-                        index == 39
-                     || index == 52
-                     || index == 21
-                     || index == 47
-                     || index == 48
-                  ){
-                     setColor(index,HSV_ORANGE);
                      continue;
                   }
                   if(
@@ -332,18 +322,22 @@ void rgb_matrix_indicators_user(void) {
                      continue;
                   }
                   if(
-                        index == 7
-                     || index == 8
+                        index == 6
                      || index == 9
+                     || index == 37
+                     || index == 44
                   ){
-                     setColor(index,HSV_SPRINGGREEN);
+                     setColor(index,HSV_ORANGE);
                      continue;
                   }
                   if(
-                        index == 13
-                     || index == 17
+                        index == 14
+                     || index == 15
+                     || index == 16
+                     || index == 40
+                     || index == 43
                   ){
-                     setColor(index,HSV_GOLD);
+                     setColor(index,HSV_SPRINGGREEN);
                      continue;
                   }
                }
